@@ -104,11 +104,11 @@ public class ImagemDB extends SQLiteOpenHelper {
     }
 
     // Consulta por sql testar depois
-    public List<Imagem> findBySql(String sql) {
+    public ArrayList<Imagem> findBySql(String sql) {
         SQLiteDatabase db = getReadableDatabase();
         try {
             Cursor c = db.rawQuery(sql,null);
-            List<Imagem> imagems = new ArrayList<Imagem>();
+            ArrayList<Imagem> imagems = new ArrayList<Imagem>();
 
             if (c.moveToFirst()) {
                 do {

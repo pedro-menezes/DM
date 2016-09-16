@@ -14,17 +14,17 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="URL:"
-        android:id="@+id/textView" />
+        android:id="@+id/textView"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true" />
 
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/etUrl"
         android:layout_below="@+id/textView"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -32,17 +32,16 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Nome:"
         android:id="@+id/textView2"
-        android:layout_below="@+id/etUrl"/>
+        android:layout_below="@+id/etUrl"
+        android:layout_alignParentStart="true" />
 
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/etNome"
         android:layout_below="@+id/textView2"
-        android:layout_alignRight="@+id/etDescricao"
-        android:layout_alignEnd="@+id/etDescricao"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:layout_alignEnd="@+id/etUrl" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -50,27 +49,24 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Descrição:"
         android:id="@+id/textView3"
-        android:layout_below="@+id/etNome" />
+        android:layout_below="@+id/etNome"
+        android:layout_alignParentStart="true" />
 
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/etDescricao"
         android:layout_below="@+id/textView3"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:layout_alignEnd="@+id/etNome" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Salvar Imagem"
         android:id="@+id/button"
-        android:layout_below="@+id/etDescricao"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="73dp"
+        android:layout_centerVertical="true"
+        android:layout_toEndOf="@+id/textView"
         android:onClick="onClickCadastrar" />
 
     <Button
@@ -79,7 +75,6 @@
         android:text="Galeria"
         android:id="@+id/button2"
         android:layout_alignTop="@+id/button"
-        android:layout_alignRight="@+id/etDescricao"
-        android:layout_alignEnd="@+id/etDescricao"
+        android:layout_toEndOf="@+id/button"
         android:onClick="onClickGaleria" />
 </RelativeLayout>

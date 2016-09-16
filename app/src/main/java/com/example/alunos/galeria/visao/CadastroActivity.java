@@ -1,16 +1,13 @@
 package com.example.alunos.galeria.visao;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.EditText;
 
 import com.example.alunos.galeria.R;
-import com.example.alunos.galeria.controle.ImagemDB;
 import com.example.alunos.galeria.modelo.Imagem;
-
-import java.util.List;
 
 public class CadastroActivity extends AppCompatActivity {
     ImagemDB bd = null;
@@ -42,7 +39,8 @@ public class CadastroActivity extends AppCompatActivity {
     }
 
     public void onClickGaleria(View v){
-        Intent itn = new Intent(this,ListaActivity.class);
-        startActivity(itn);
+
+        startActivity(new Intent(this, GaleriaActivity.class));
     }
+
 }

@@ -24,7 +24,8 @@
         android:id="@+id/etUrl"
         android:layout_below="@+id/textView"
         android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true"
+        android:text="https://pbs.twimg.com/profile_images/503827683/JPG_LOGO_AA.JPG" />
 
     <TextView
         android:layout_width="wrap_content"

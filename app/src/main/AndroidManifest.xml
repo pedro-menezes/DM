@@ -19,6 +19,7 @@
         </activity>
         <activity android:name=".visao.GaleriaActivity"></activity>
 
+        <activity android:name=".visao.ListaActivity"></activity>
     </application>
 
 </manifest>

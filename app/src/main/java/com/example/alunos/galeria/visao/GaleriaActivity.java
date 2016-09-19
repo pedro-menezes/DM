@@ -36,7 +36,7 @@ public class GaleriaActivity extends AppCompatActivity {
         setContentView(R.layout.activity_galeria);
 
         //criando imagens pra teste
-        Imagem i1 = new Imagem();
+      /*  Imagem i1 = new Imagem();
         i1.setNome("Nome 1");
         i1.setDescricao("Desc 1");
         i1.setUrl("http://www.sitedeimagens.com/imagens/diversas-imagens-do-cruzeiro-10.jpg");
@@ -47,11 +47,15 @@ public class GaleriaActivity extends AppCompatActivity {
         Imagem i3 = new Imagem();
         i3.setNome("Nome 3");
         i3.setDescricao("Desc 3");
-        i3.setUrl("http://www.fabricadebandeiras.com.br/img/products/bandeira-cruzeiro-2_1_630.jpg");
+        i3.setUrl("http://www.fabricadebandeiras.com.br/img/products/bandeira-cruzeiro-2_1_630.jpg");*/
 
         tvNome = (TextView) findViewById(R.id.textView4);
         tvDescricao = (TextView) findViewById(R.id.textView5);
         ig = new ImagemDB(getBaseContext());
+
+       /* ig.save(i1);
+        ig.save(i2);
+        ig.save(i3);*/
         im = new Imagem();
         vetorImagemBD = ig.findAll();
         vetorImagem = new Bitmap[vetorImagemBD.size()];

@@ -35,7 +35,7 @@ public class ListaActivity extends Activity implements OnItemClickListener {
             Log.d("TESTE", listName.get(cont));
         }
         //identifica ListView
-       listView = (ListView) findViewById(R.id.listView);
+        listView = (ListView) findViewById(R.id.listView);
 
 
         //cria adatper simples a partir da classe criada
@@ -44,13 +44,17 @@ public class ListaActivity extends Activity implements OnItemClickListener {
 
         //setando adapter criado
         listView.setAdapter(salv);
-       listView.setOnItemClickListener(this);
+        listView.setOnItemClickListener(this);
     }
     //
 
     //método listener do listView setado no onCreate
     public void onItemClick(AdapterView<?> parent, View view, int idx, long id) {
-        String s = (String) parent.getAdapter().getItem(idx); // Objeto selecionado, que neste caso era de um array de strings
+        String s = (String) parent.getAdapter().getItem(idx);
+        bd.execSQL("DELETE FROM imagem WHERE imgNome = '"+s+"';");
+
+        onCreate(Bundle.EMPTY);
+        // Objeto selecionado, que neste caso era de um array de strings
         Toast.makeText(this, "Texto selecionado: " + s + ", posição: " + idx, Toast.LENGTH_SHORT).show();
     }
 }

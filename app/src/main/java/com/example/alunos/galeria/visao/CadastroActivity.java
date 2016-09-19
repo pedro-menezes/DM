@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.EditText;
 
 import com.example.alunos.galeria.R;
+import com.example.alunos.galeria.controle.ImagemDB;
 import com.example.alunos.galeria.modelo.Imagem;
 
 public class CadastroActivity extends AppCompatActivity {
@@ -39,8 +40,11 @@ public class CadastroActivity extends AppCompatActivity {
     }
 
     public void onClickGaleria(View v){
-
         startActivity(new Intent(this, GaleriaActivity.class));
+    }
+
+    public void onClickListaDeFotos(View v){
+        startActivity(new Intent(this, ListaActivity.class));
     }
 
 }

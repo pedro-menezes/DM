@@ -34,6 +34,21 @@ public class GaleriaActivity extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_galeria);
+
+        //criando imagens pra teste
+        Imagem i1 = new Imagem();
+        i1.setNome("Nome 1");
+        i1.setDescricao("Desc 1");
+        i1.setUrl("http://www.sitedeimagens.com/imagens/diversas-imagens-do-cruzeiro-10.jpg");
+        Imagem i2 = new Imagem();
+        i2.setNome("Nome 2");
+        i2.setDescricao("Desc 2");
+        i2.setUrl("http://2.bp.blogspot.com/-oyl_Ngsh4Xs/VpjihFNzmWI/AAAAAAAAOUQ/QVuBc6DNtCg/s1600/cruzeiro-tabela-2016.jpg");
+        Imagem i3 = new Imagem();
+        i3.setNome("Nome 3");
+        i3.setDescricao("Desc 3");
+        i3.setUrl("http://www.fabricadebandeiras.com.br/img/products/bandeira-cruzeiro-2_1_630.jpg");
+
         tvNome = (TextView) findViewById(R.id.textView4);
         tvDescricao = (TextView) findViewById(R.id.textView5);
         ig = new ImagemDB(getBaseContext());
@@ -49,10 +64,8 @@ public class GaleriaActivity extends AppCompatActivity {
             @Override
             public void onPageSelected(int position) {
                 //mostra o nome da imagem em um toast
-                Toast t = Toast.makeText(getBaseContext(), "Imagem: " + position, Toast.LENGTH_SHORT);
-                t.show();
-                tvNome.setText(tvNome.getText() + " " + vetorImagemBD.get(position).getNome());
-                tvDescricao.setText(tvDescricao.getText() + " " + vetorImagemBD.get(position).getNome());
+                tvNome.setText("Nome: "+ vetorImagemBD.get(position).getNome());
+                tvDescricao.setText("Descrição: " + vetorImagemBD.get(position).getNome());
 
             }
             @Override
@@ -104,6 +117,8 @@ public class GaleriaActivity extends AppCompatActivity {
                 //seta o adaptador
                 g.setAdapter(new ImagemPagerAdapter(getBaseContext(), vetorImagem));
                 g.refreshDrawableState();
+                tvNome.setText("Nome: "+ vetorImagemBD.get(0).getNome());
+                tvDescricao.setText("Descrição: " + vetorImagemBD.get(0).getNome());
 
             }
         });

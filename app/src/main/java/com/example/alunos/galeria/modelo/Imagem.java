@@ -41,6 +41,6 @@ public class Imagem implements Serializable {
 
     @Override
     public String toString() {
-        return "Contato{" + "nome='" + nome + '\'' + ", fone='" + descricao + '\'' + '}';
+        return "Imagem{" + "nome='" + nome + '\'' + ", descrição='" + descricao + '\'' + ", url='" + url + '}';
     }
 }

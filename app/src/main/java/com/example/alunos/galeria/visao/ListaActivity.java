@@ -52,10 +52,10 @@ public class ListaActivity extends Activity implements OnItemClickListener {
     public void onItemClick(AdapterView<?> parent, View view, int idx, long id) {
         String s = (String) parent.getAdapter().getItem(idx);
         bd.execSQL("DELETE FROM imagem WHERE imgNome = '"+s+"';");
-
-        onCreate(Bundle.EMPTY);
+        finish();
+        startActivity(getIntent());
         // Objeto selecionado, que neste caso era de um array de strings
-        Toast.makeText(this, "Texto selecionado: " + s + ", posição: " + idx, Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Imagem: " + s + ", apagada ",Toast.LENGTH_SHORT).show();
     }
 }
 

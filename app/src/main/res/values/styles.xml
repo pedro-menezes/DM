@@ -6,11 +6,54 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
     </style>
-    <style name="fundo">
-        <item name="android:background">@drawable/degrade_linear</item>
+
+    <style name="textViews">
+        <!-- Customize your theme here. -->
+        <item name="android:textColor">#996e00</item>
+        <item name="android:textColorSecondary">#760000</item>
+        <item name="android:textStyle">bold</item>
+
+        <item name="android:textColorTertiary">#760000</item>
+        <item name="android:textSize">18dp</item>
+
     </style>
-    <style name="button">
-        <item name="android:background">@drawable/button</item>
+
+    <style name="botao_comum">
+        <!-- Customize your theme here. -->
+        <item name="android:textColor">#fdfbfb</item>
+        <item name="android:textColorSecondary">#760000</item>
+        <item name="android:textStyle">bold</item>
+
+        <item name="android:textColorTertiary">#760000</item>
+        <item name="android:textSize">18dp</item>
+        <item name="android:background">@drawable/custon_btn</item>
+    </style>
+
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="ButtonLogin">
+        <item name="android:background">@drawable/buttonshapelogin</item>
+    </style>
+
+    <style name="ButtonCadastrar">
+        <item name="android:background">@drawable/buttonshapecadastrar</item>
+    </style>
+
+    <style name="ButtonLogin1">
+        <item name="android:background">@drawable/buttonshapeloginred</item>
+    </style>
+
+    <style name="customBorder">
+        <item name="android:background">@drawable/customborder</item>
     </style>
 </resources>

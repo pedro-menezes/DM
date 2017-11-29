@@ -45,15 +45,27 @@
         <item name="android:background">@drawable/buttonshapelogin</item>
     </style>
 
-    <style name="ButtonCadastrar">
+    <style name="ButtonMarrom">
         <item name="android:background">@drawable/buttonshapecadastrar</item>
     </style>
 
-    <style name="ButtonLogin1">
+    <style name="ButtonVermelho">
         <item name="android:background">@drawable/buttonshapeloginred</item>
     </style>
 
     <style name="customBorder">
         <item name="android:background">@drawable/customborder</item>
+    </style>
+
+    <style name="customBorder2">
+        <item name="android:background">@drawable/customborder2</item>
+    </style>
+
+    <style name="ButtonMenor">
+        <item name="android:background">@drawable/buttonshapemenor</item>
+    </style>
+
+    <style name="ButtonAzul">
+        <item name="android:background">@drawable/buttonshapeblue</item>
     </style>
 </resources>

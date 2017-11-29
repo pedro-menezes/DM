@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.fernando.menudeslisante.GerenciarProvaActivity">
+
+    <Button
+        android:id="@+id/buttonPdf"
+        style="@style/ButtonMenor"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="7dp"
+        android:layout_marginRight="7dp"
+        android:layout_marginTop="94dp"
+        android:onClick="onClickPDF"
+        android:text="Gerar PDF"
+        android:textColor="#FFFFFF" />
+
+    <Button
+        android:id="@+id/buttonAlterar"
+        style="@style/ButtonMenor"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/buttonPdf"
+        android:layout_alignLeft="@+id/buttonPdf"
+        android:layout_alignRight="@+id/buttonPdf"
+        android:layout_alignStart="@+id/buttonPdf"
+        android:layout_below="@+id/buttonPdf"
+        android:layout_marginTop="17dp"
+        android:text="alterar prova"
+        android:textColor="#FFFFFF" />
+
+    <Button
+        android:id="@+id/buttonExcluir"
+        style="@style/ButtonMenor"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/buttonAlterar"
+        android:layout_alignLeft="@+id/buttonAlterar"
+        android:layout_alignRight="@+id/buttonAlterar"
+        android:layout_alignStart="@+id/buttonAlterar"
+        android:layout_below="@+id/buttonAlterar"
+        android:layout_marginTop="19dp"
+        android:onClick="onClickExcluir"
+        android:text="Excluir prova"
+        android:textColor="#FFFFFF" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/buttonExcluir"
+        android:layout_marginLeft="7dp"
+        android:layout_marginRight="7dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginBottom="100dp"
+        style="@style/customBorder">
+
+        <TextView
+            android:id="@+id/textViewNome"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/textNome"
+            android:layout_alignBottom="@+id/textNome"
+            android:layout_alignLeft="@+id/textViewCodigo"
+            android:layout_alignStart="@+id/textViewCodigo"
+            android:text="TextView"
+            android:textAppearance="@android:style/TextAppearance.Material.Medium"
+            android:textColor="#3A89B7" />
+
+        <TextView
+            android:id="@+id/textNQuestoes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/textNome"
+            android:layout_alignStart="@+id/textNome"
+            android:layout_below="@+id/textNome"
+            android:layout_marginTop="20dp"
+            android:text="Nº de Questões:"
+            android:textAppearance="@android:style/TextAppearance.Material.Medium"
+            android:textColor="#3A89B7" />
+
+        <TextView
+            android:id="@+id/textView6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="13dp"
+            android:layout_marginStart="13dp"
+            android:layout_marginTop="53dp"
+            android:text="Código:"
+            android:textAppearance="@android:style/TextAppearance.Material.Medium"
+            android:textColor="#3A89B7" />
+
+        <TextView
+            android:id="@+id/textViewNQuestoes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignEnd="@+id/textViewNome"
+            android:layout_alignRight="@+id/textViewNome"
+            android:layout_alignTop="@+id/textNQuestoes"
+            android:text="TextView"
+            android:textAppearance="@android:style/TextAppearance.Material.Medium"
+            android:textColor="#3A89B7" />
+
+        <TextView
+            android:id="@+id/textNome"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/textView6"
+            android:layout_alignStart="@+id/textView6"
+            android:layout_below="@+id/textView6"
+            android:layout_marginTop="17dp"
+            android:text="Nome:"
+            android:textAppearance="@android:style/TextAppearance.Material.Medium"
+            android:textColor="#3A89B7" />
+
+        <TextView
+            android:id="@+id/textViewCodigo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/textView6"
+            android:layout_alignBottom="@+id/textView6"
+            android:layout_marginLeft="30dp"
+            android:layout_marginStart="30dp"
+            android:layout_toEndOf="@+id/textNQuestoes"
+            android:layout_toRightOf="@+id/textNQuestoes"
+            android:text="TextView"
+            android:textAppearance="@android:style/TextAppearance.Material.Medium"
+            android:textColor="#3A89B7" />
+
+    </RelativeLayout>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/floatingActionButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/buttonExcluir"
+        android:layout_alignParentBottom="true"
+        android:layout_alignRight="@+id/buttonExcluir"
+        android:layout_marginBottom="32dp"
+        android:layout_marginEnd="29dp"
+        android:layout_marginRight="29dp"
+        android:clickable="true"
+        app:srcCompat="@android:drawable/ic_dialog_email"
+        android:onClick="onClickEmail"/>
+</RelativeLayout>

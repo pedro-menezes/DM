@@ -9,16 +9,17 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.example.fernando.menudeslisante.R;
+import com.example.fernando.menudeslisante.beans.Prova;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class AdapterListView extends BaseAdapter {
-    private List<String> lista = new ArrayList<String>();
-    private Context context;
+    private List<Prova> provaList = new ArrayList<>();
+     private Context context;
 
-    public void setLista(List<String> lista){
-        this.lista = lista;
+    public void setLista(List<Prova> lista){
+        this.provaList = lista;
     }
 
 
@@ -30,12 +31,12 @@ public class AdapterListView extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return lista.size();
+        return provaList.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return lista.get(position);
+        return provaList.get(position);
     }
 
     @Override
@@ -45,10 +46,14 @@ public class AdapterListView extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        String itemLista = lista.get(position);
+        Prova itemLista = provaList.get(position);
         View view = LayoutInflater.from(context).inflate(R.layout.adapter_listview_item, parent, false);
-        TextView t = (TextView) view.findViewById(R.id.tvNomePrato);
-        t.setText(itemLista);
+        TextView t = (TextView) view.findViewById(R.id.textNome);
+        TextView t1 = (TextView) view.findViewById(R.id.textCodigo);
+        TextView t2 = (TextView) view.findViewById(R.id.textNumQuestoes);
+        t.setText(itemLista.getprvNome());
+        t1.setText(String.valueOf(itemLista.getprvCodigo()));
+        t2.setText(String.valueOf(itemLista.numeroQuestoes(context)));
         return view;
     }
 }

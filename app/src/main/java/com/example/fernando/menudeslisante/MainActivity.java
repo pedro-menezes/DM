@@ -10,6 +10,9 @@ import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import com.example.fernando.menudeslisante.adapters.GaleriaImagensAdapter;
+
+import com.example.fernando.menudeslisante.adapters.GaleriaImagensAdapter;
 
 public class MainActivity extends Activity {
     @Override

@@ -14,7 +14,7 @@
         android:layout_gravity="bottom">
 
         <EditText
-            android:id="@+id/editText"
+            android:id="@+id/editUsuario"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="0.05"
@@ -25,7 +25,7 @@
             android:text="Usuário" />
 
         <EditText
-            android:id="@+id/editText3"
+            android:id="@+id/editSenha"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="0.05"
@@ -38,14 +38,14 @@
     </LinearLayout>
 
     <Button
-        android:id="@+id/button"
-        style="@style/ButtonLogin1"
+        android:id="@+id/buttonLogin"
+        style="@style/ButtonVermelho"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
+        android:onClick="onCLick"
         android:text="entrar"
-        android:textColor="#FFFFFF"
-        android:onClick="onClickLoging"/>
+        android:textColor="#FFFFFF" />
 
     <ImageView
         android:id="@+id/imageView"

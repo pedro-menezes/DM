@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="match_parent"
-    tools:context=".view.fragments.Opcao2Fragment"
+    tools:context=".view.fragments.AdicionarQuestoesFragment"
     android:orientation="vertical">
     <!-- inicio banner app -->
     <LinearLayout
@@ -27,6 +27,72 @@
             android:textColor="#3A89B7" />
 
     </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <Button
+            android:id="@+id/buttonQuestoes"
+            style="@style/ButtonMenor"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/editText"
+            android:layout_centerHorizontal="true"
+            android:layout_marginLeft="7dp"
+            android:layout_marginRight="7dp"
+            android:layout_marginTop="19dp"
+            android:text="adicionar questões"
+            android:textColor="#FFFFFF" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignEnd="@+id/editText"
+            android:layout_alignLeft="@+id/editText"
+            android:layout_alignParentTop="true"
+            android:layout_alignRight="@+id/editText"
+            android:layout_alignStart="@+id/editText"
+            android:layout_marginTop="26dp"
+            android:text="Nome:"
+            android:textColor="#3A89B7" />
+
+        <EditText
+            style="@style/customBorder2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textView2"
+            android:layout_marginLeft="7dp"
+            android:layout_marginRight="7dp"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:id="@+id/editText" />
+
+        <ListView
+            android:id="@+id/listViewQuestoes"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/buttonCadastar"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="200dp"
+            tools:listitem="@android:layout/simple_list_item_1" />
+
+        <Button
+            android:id="@+id/buttonCadastar"
+            style="@style/ButtonAzul"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:onClick="onClickQuestoes"
+            android:text="cadastrar"
+            android:textColor="#FFFFFF" />
+    </RelativeLayout>
+
+
 
 
     <!-- fim banner app -->

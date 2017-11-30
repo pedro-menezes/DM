@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import com.example.fernando.menudeslisante.adapters.AdapterListViewSimples;
 import com.example.fernando.menudeslisante.bd.BDAlternativa;
+import com.example.fernando.menudeslisante.bd.BDProva;
 import com.example.fernando.menudeslisante.bd.BDProva_Questao;
 import com.example.fernando.menudeslisante.bd.BdQuestao;
 import com.example.fernando.menudeslisante.beans.Alternativa;
@@ -92,15 +93,31 @@ public class VisualizarQuestaoActivity extends AppCompatActivity {
     public void onClick(View v){
         Bundle extras = getIntent().getExtras();
         Object recebeExtra = extras.get("codigoProva");
-        int codigoProva = Integer.parseInt(recebeExtra.toString());
+
+        int codigoProva = new BDProva(this).getAllSql().size();
+
+        Log.d("[IFMG]", "codigoProva: " + codigoProva);
 
         Prova_Questao pquestao = new Prova_Questao();
         BDProva_Questao bdProvaQuestao = new BDProva_Questao(this);
 
-        pquestao.setPrq_prvCodigo(codigoProva);
-        pquestao.setPrq_queCodigo(questao.getqueCodigo());
+        List<Prova_Questao> prova_questaoList = bdProvaQuestao.getAllSql();
 
-        bdProvaQuestao.insertProva_Questao(pquestao);
+        boolean verificador = false;
+        for (Prova_Questao pquestao1:prova_questaoList) {
+            if (codigoProva == pquestao1.getPrq_prvCodigo() && questao.getqueCodigo() == pquestao1.getPrq_queCodigo()){
+                verificador = true;
+            }
+        }
+
+        if (verificador == true) {
+            Toast.makeText(this, "Questao já estava cadastrada nessa prova!", Toast.LENGTH_SHORT).show();
+        } else {
+            pquestao.setPrq_prvCodigo(codigoProva);
+            pquestao.setPrq_queCodigo(questao.getqueCodigo());
+
+            bdProvaQuestao.insertProva_Questao(pquestao);
+        }
         finish();
     }
 

@@ -149,5 +149,33 @@ public class JSONDados {
         return f;
     }
 
+    public static String geraJsonProva(String prvNome, int prvCodigo) {
+        ArrayList<JSONObject> tabela = new ArrayList<JSONObject>();
+        JSONObject registro = new JSONObject();
+        //cria um registro primeiro
+        try {
+            registro.put("prvCodigo", prvCodigo);
+            registro.put("prvNome", prvNome);
+        } catch (JSONException k) {
+            Log.d("IFMG", "" + k.getMessage());
+        }
+        tabela.add(registro);        //adiciona registro à lista de registros
+
+        //adiciona tabela
+        JSONObject bd = new JSONObject();
+        try {
+            //ADICIONA O IDENTIFICADOR DA TABELA NO JSON
+            bd.putOpt("prova", (Object) tabela);
+        } catch (JSONException u) {
+        }
+
+        String f = bd.toString();
+        f = f.replace("\\", "");//gambiarra!!!
+        f = f.replace(":\"[", ":[");
+        f = f.replace("]\"}", "]}");
+        //Toast.makeText(getApplication(),""+f,Toast.LENGTH_SHORT).show();
+        Log.i("JSON_LOGIN: ", f);
+        return f;
+    }
 
 }

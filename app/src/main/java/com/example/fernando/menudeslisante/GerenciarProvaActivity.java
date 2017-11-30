@@ -7,13 +7,22 @@ import android.content.Intent;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.fernando.menudeslisante.bd.BDAlternativa;
 import com.example.fernando.menudeslisante.bd.BDProva;
 import com.example.fernando.menudeslisante.bd.BDProva_Questao;
+import com.example.fernando.menudeslisante.bd.BDTema;
+import com.example.fernando.menudeslisante.bd.BdQuestao;
+import com.example.fernando.menudeslisante.beans.Alternativa;
 import com.example.fernando.menudeslisante.beans.Prova;
+import com.example.fernando.menudeslisante.beans.Prova_Questao;
+import com.example.fernando.menudeslisante.beans.Questao;
+import com.example.fernando.menudeslisante.beans.Tema;
+import com.itextpdf.text.Paragraph;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -72,19 +81,141 @@ public class GerenciarProvaActivity extends AppCompatActivity {
     }
 
     public void onClickEmail(View view){
+        BdQuestao bdQuestao = new BdQuestao(this);
+        BDTema bdTema = new BDTema(this);
+        BDAlternativa bdAlternativa = new BDAlternativa(this);
+        ArrayList<Integer> codigosQuestoes = new ArrayList<>();
+        ArrayList<Integer> codigosTemas = new ArrayList<>();
+        List<Prova_Questao> prova_questoes = bdProva_questao.getAllSql();
+        List<Tema> temas = bdTema.getAllSql();
+        List<Alternativa> alternativas = new ArrayList<>();
+
+        for (Prova_Questao prova_questao: prova_questoes) {
+            if (prova_questao.getPrq_prvCodigo() == prova.getprvCodigo()){
+                codigosQuestoes.add(prova_questao.getPrq_queCodigo());
+            }
+        }
+
+        ArrayList<Questao> questoes = new ArrayList<>();
+
+        for (Integer codigosQuest: codigosQuestoes) {
+            questoes.add(bdQuestao.buscarQuestao(codigosQuest).get(0));
+        }
+
+        for (Questao questao: questoes) {
+            codigosTemas.add(questao.getque_temCodigo());
+        }
+
+        String nomeTemas = "";
+        for (Tema tema: temas) {
+            nomeTemas = nomeTemas+tema.gettemNome()+",";
+        }
+
+        ArrayList<Alternativa> alternativas1 = new ArrayList<>();
+        for (Questao questao: questoes) {
+            alternativas = bdAlternativa.findBySql("SELECT * FROM alternativa WHERE alt_queCodigo='"+questao.getqueCodigo()+"';");
+            for (Alternativa alternativa: alternativas) {
+                alternativas1.add(alternativa);
+            }
+        }
+
+        for (Alternativa alternativa: alternativas1) {
+            Log.d("[IFMG]", alternativa.getAltEnunciado());
+
+        }
+
+
+        String corpoEmail =" ";
+        int contQuestao = 1;
+        int contAlternativa = 1;
+        for (Questao questao:questoes) {
+            corpoEmail = corpoEmail + contQuestao+") "+questao.getqueEnunciado()+"\n";
+            for (Alternativa alternativa: alternativas) {
+                if (alternativa.getAlt_queCodigo() == questao.getqueCodigo()){
+                    switch (contAlternativa){
+                        case 1:
+                            corpoEmail = corpoEmail + "a) "+alternativa.getAltEnunciado() + "\n";
+                            contAlternativa++;
+                            break;
+                        case 2:
+                            corpoEmail = corpoEmail + "b) "+alternativa.getAltEnunciado() + "\n";
+                            contAlternativa++;
+                            break;
+                        case 3:
+                            corpoEmail = corpoEmail + "c) "+alternativa.getAltEnunciado() + "\n";
+                            contAlternativa++;
+                            break;
+                        case 4:
+                            corpoEmail = corpoEmail + "d) "+alternativa.getAltEnunciado() + "\n";
+                            contAlternativa++;
+                            break;
+                        case 5:
+                            corpoEmail = corpoEmail + "e) "+alternativa.getAltEnunciado() + "\n\n\n";
+                            break;
+                    }
+                }
+            }
+            contQuestao++;
+        }
         Intent emailIntent = new Intent(Intent.ACTION_SEND);
         emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Título do email");
-        emailIntent.putExtra(Intent.EXTRA_TEXT, "Corpo do email");
+        emailIntent.putExtra(Intent.EXTRA_TEXT, corpoEmail);
         emailIntent.putExtra(Intent.EXTRA_EMAIL, "fernando.lima@ifmg.edu.br");
-        emailIntent.setType("message/rfc822");
-        Uri uri = Uri.parse("sdcard/dirtTest/TESTE.pdf");
+        File file = new File("dirtTest/TESTE.pdf");
+        Uri uri = Uri.fromFile(file);
         emailIntent.putExtra(Intent.EXTRA_STREAM, uri);
+        emailIntent.setType("application/pdf");
+
         startActivity(emailIntent);
     }
 
     public void onClickPDF(View view){
         //gera o pdf
-        new PDF("dirTeste","TESTE", prova);
+        BdQuestao bdQuestao = new BdQuestao(this);
+        BDTema bdTema = new BDTema(this);
+        BDAlternativa bdAlternativa = new BDAlternativa(this);
+        ArrayList<Integer> codigosQuestoes = new ArrayList<>();
+        ArrayList<Integer> codigosTemas = new ArrayList<>();
+        List<Prova_Questao> prova_questoes = bdProva_questao.getAllSql();
+        List<Tema> temas = bdTema.getAllSql();
+        List<Alternativa> alternativas = new ArrayList<>();
+
+        for (Prova_Questao prova_questao: prova_questoes) {
+            if (prova_questao.getPrq_prvCodigo() == prova.getprvCodigo()){
+                codigosQuestoes.add(prova_questao.getPrq_queCodigo());
+            }
+        }
+
+        ArrayList<Questao> questoes = new ArrayList<>();
+
+        for (Integer codigosQuest: codigosQuestoes) {
+            questoes.add(bdQuestao.buscarQuestao(codigosQuest).get(0));
+        }
+
+        for (Questao questao: questoes) {
+            codigosTemas.add(questao.getque_temCodigo());
+        }
+
+        String nomeTemas = "";
+        for (Tema tema: temas) {
+            nomeTemas = nomeTemas+tema.gettemNome()+",";
+        }
+
+        ArrayList<Alternativa> alternativas1 = new ArrayList<>();
+        for (Questao questao: questoes) {
+            alternativas = bdAlternativa.findBySql("SELECT * FROM alternativa WHERE alt_queCodigo='"+questao.getqueCodigo()+"';");
+            for (Alternativa alternativa: alternativas) {
+                alternativas1.add(alternativa);
+            }
+        }
+
+        for (Alternativa alternativa: alternativas1) {
+            Log.d("[IFMG]", alternativa.getAltEnunciado());
+
+        }
+
+
+        new PDF("dirTeste","TESTE", prova, nomeTemas, questoes, alternativas1);
         Toast.makeText(getBaseContext(),"PDF criado!",Toast.LENGTH_SHORT).show();
     }
 

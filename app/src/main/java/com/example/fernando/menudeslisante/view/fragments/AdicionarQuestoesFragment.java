@@ -19,14 +19,21 @@ import android.widget.Toast;
 import com.example.fernando.menudeslisante.AdicionarQuestoesActivity;
 import com.example.fernando.menudeslisante.MainActivity;
 import com.example.fernando.menudeslisante.R;
+import com.example.fernando.menudeslisante.TelaSplashActivity;
 import com.example.fernando.menudeslisante.adapters.AdapterListViewSimples;
 import com.example.fernando.menudeslisante.bd.BDProva;
 import com.example.fernando.menudeslisante.bd.BDProva_Questao;
 import com.example.fernando.menudeslisante.beans.Prova;
 import com.example.fernando.menudeslisante.beans.Prova_Questao;
 import com.example.fernando.menudeslisante.beans.Questao;
+import com.example.fernando.menudeslisante.sinc.JSONDados;
+import com.example.fernando.menudeslisante.sinc.JSONParser;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -43,6 +50,7 @@ public class AdicionarQuestoesFragment extends Fragment {
     private Button button, button2;
     private Prova prova2;
     private int codigo = Integer.MAX_VALUE;
+    private int v = 1;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -101,7 +109,7 @@ public class AdicionarQuestoesFragment extends Fragment {
                         bdProva.insertProva(prova);
 
                         prova2 = new Prova();
-                        prova2.setprvCodigo(0);
+                        prova2.setprvCodigo(1);
                         for (Prova prova1: provas) {
                             if (prova1.getprvCodigo() > prova2.getprvCodigo()){
                                 prova2 = prova1;
@@ -109,10 +117,14 @@ public class AdicionarQuestoesFragment extends Fragment {
                         }
                         codigo = prova2.getprvCodigo();
                         Log.d("[IFMG]","resultado: não existia, prova nova");
+                        Log.d("[IFMG]","codigoProva: "+prova2.getprvCodigo());
                         editText.setEnabled(false);
                         Intent intent = new Intent(getActivity(), AdicionarQuestoesActivity.class);
                         intent.putExtra("codigoProva", prova2.getprvCodigo());
                         startActivity(intent);
+                        requisitaPost(JSONDados.geraJsonProva(prova2.getprvNome(), prova2.getprvCodigo()), "https://provafacil.000webhostapp.com/REST/recebeProva.php");
+                        button.setEnabled(false);
+                        mudarV();
                     }
                 }
             }
@@ -133,14 +145,56 @@ public class AdicionarQuestoesFragment extends Fragment {
         });
     }
 
+    public void requisitaPost(final String parametroJSON, final String URL_) {
+
+
+        //thread obrigatória para realização da requisição pode ser usado com outras formas de thread
+        new Thread(new Runnable() {
+            public void run() {
+                JSONParser jsonParser = new JSONParser();
+                JSONObject json = null;
+                try {
+                    //prepara parâmetros para serem enviados via método POST
+                    HashMap<String, String> params = new HashMap<>();
+                    params.put("dados", parametroJSON);
+
+                    Log.d("[IFMG]", parametroJSON);
+                    Log.d("[IFMG]", "JSON Envio Iniciando...");
+
+                    //faz a requisição POST e retorna o que o webservice REST envoiu dentro de json
+                    json = jsonParser.makeHttpRequest(URL_, "POST", params);
+
+                    Log.d("[IFMG]", " JSON Envio Terminado...");
+
+                    //Mostra no log e retorna o que o json retornou, caso não retornou nulo
+                    if (json != null) {
+                        Log.d("[IFMG]", json.toString());
+                        //return json;
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+                Log.d("[IFMG]", "finalizando baixar defeitos");
+
+                //----------------------------------------------
+                //PÓS DOWNLOAD
+                //----------------------------------------------
+
+                //teste para ferificar se o json chegou corretamente e foi interpretado
+               }});}
+
     public AdicionarQuestoesFragment(){
 
     }
 
     public void onResume() {
         super.onResume();
-
-        criaLista();
+        if (v == 0){
+        criaLista();}
+    }
+    public void mudarV(){
+        v = 0;
     }
 
     private AdapterListViewSimples salv;
@@ -154,7 +208,7 @@ public class AdicionarQuestoesFragment extends Fragment {
         prova_questaoList = bdProva_questao.getAllSql();
 
         for (Prova_Questao provaq: prova_questaoList) {
-            if (provaq.getPrq_prvCodigo() == codigo){
+            if (provaq.getPrq_prvCodigo() == new BDProva(getContext()).getAllSql().size()){
                 codigosQuestoes.add(provaq.getPrq_queCodigo());
             }
         }
@@ -188,7 +242,7 @@ public class AdicionarQuestoesFragment extends Fragment {
             public void onClick(DialogInterface arg0, int arg1) {
                 Prova_Questao pquestao = new Prova_Questao();
                 BDProva_Questao bdProva_questao = new BDProva_Questao(getContext());
-                bdProva_questao.executeSQL("DELETE FROM prova_questao WHERE prq_prvCodigo = '"+codigo+"' AND prq_queCodigo = '"+lista.get(position)+"';");
+                bdProva_questao.executeSQL("DELETE FROM prova_questao WHERE prq_prvCodigo = '"+new BDProva(getContext()).getAllSql().size()+"' AND prq_queCodigo = '"+lista.get(position)+"';");
                 criaLista();
             }
         });

@@ -1,13 +1,19 @@
 package com.example.fernando.menudeslisante;
 
+import android.content.Context;
 import android.os.Environment;
 
+import com.example.fernando.menudeslisante.bd.BDProva;
+import com.example.fernando.menudeslisante.beans.Alternativa;
 import com.example.fernando.menudeslisante.beans.Prova;
+import com.example.fernando.menudeslisante.beans.Questao;
+import com.example.fernando.menudeslisante.beans.Tema;
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Element;
 import com.itextpdf.text.Font;
+import com.itextpdf.text.List;
 import com.itextpdf.text.PageSize;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.Phrase;
@@ -17,6 +23,7 @@ import com.itextpdf.text.pdf.PdfWriter;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.util.ArrayList;
 
 public class PDF {
     //Document document;
@@ -29,11 +36,13 @@ public class PDF {
     private static Font smallFont1 = new Font(Font.FontFamily.HELVETICA, 6, Font.NORMAL);
     private static Font dados = new Font(Font.FontFamily.HELVETICA, 9, Font.NORMAL);
     private static BaseColor color = new BaseColor(153, 255, 153);
-
+    private Prova prova;
+    private String temas;
     /**
      * Função responsável por criar um diretório caso ele não exista
      * @param diretorio
      */
+
     private void criandoDiretorio(String diretorio) {
         File file1 = new File(Environment.getExternalStorageDirectory(), "/" + diretorio + "/");
         if (!file1.exists()) {
@@ -43,10 +52,11 @@ public class PDF {
     }
 
     //gerando o pdf
-    public PDF(String diretorio, String nomePDF, Prova prova) {
+    public PDF(String diretorio, String nomePDF, Prova prova, String temas, ArrayList<Questao> questoes, ArrayList<Alternativa> alternativas) {
+        this.prova = prova;
+        this.temas = temas;
         //Criando um diretório caso ele não exista
         criandoDiretorio(diretorio);
-
         //alocando espaço do arquivo
         File file = new File(Environment.getExternalStorageDirectory(), "/" + diretorio + "/" + nomePDF + ".pdf");
         FileOutputStream fileOut = null;
@@ -64,7 +74,39 @@ public class PDF {
             document.open();
 
             //insere dados formatados do pdf
+            int contQuestao = 1;
+            int contAlternativa = 1;
             tabFormatada(document);
+            for (Questao questao:questoes) {
+                document.add(new Paragraph(contQuestao+") "+questao.getqueEnunciado()));
+                for (Alternativa alternativa: alternativas) {
+                    if (alternativa.getAlt_queCodigo() == questao.getqueCodigo()){
+                        switch (contAlternativa){
+                            case 1:
+                                document.add(new Paragraph("a) "+alternativa.getAltEnunciado()));
+                                contAlternativa++;
+                                break;
+                            case 2:
+                                document.add(new Paragraph("b) "+alternativa.getAltEnunciado()));
+                                contAlternativa++;
+                                break;
+                            case 3:
+                                document.add(new Paragraph("c) "+alternativa.getAltEnunciado()));
+                                contAlternativa++;
+                                break;
+                            case 4:
+                                document.add(new Paragraph("d) "+alternativa.getAltEnunciado()));
+                                contAlternativa++;
+                                break;
+                            case 5:
+                                document.add(new Paragraph("e) "+alternativa.getAltEnunciado()));
+                                addLinhaBranco(new Paragraph(), 3);
+                                break;
+                        }
+                    }
+                }
+                contQuestao++;
+            }
             document.newPage();//gera a pagina
             document.close(); //fecha o documento
             fileOut.close();
@@ -86,19 +128,15 @@ public class PDF {
          * pela colspan de acordo com o tamanho de colunas criadas anteriormente
          */
 
+
         //____________________________________________-
         //Criando célula por celula da tabela
-        c1 = new PdfPCell(new Phrase("Prova", catFont3));
+        c1 = new PdfPCell(new Phrase("Prova "+prova.getprvNome(), catFont3));
         c1.setHorizontalAlignment(Element.ALIGN_LEFT);
         c1.setColspan(20);
         table.addCell(c1);
 
-        c1 = new PdfPCell(new Phrase("Professor: ", catFont3));
-        c1.setHorizontalAlignment(Element.ALIGN_LEFT);
-        c1.setColspan(20);
-        table.addCell(c1);
-
-        c1 = new PdfPCell(new Phrase("Temas: ", catFont3));
+        c1 = new PdfPCell(new Phrase("Temas: "+temas, catFont3));
         c1.setHorizontalAlignment(Element.ALIGN_LEFT);
         c1.setColspan(20);
         table.addCell(c1);

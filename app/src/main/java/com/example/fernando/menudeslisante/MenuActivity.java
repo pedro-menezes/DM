@@ -77,12 +77,7 @@ public class MenuActivity extends AppCompatActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        switch (id) {
-            case (R.id.action_sobre):
-                Toast.makeText(getApplicationContext(), "Teste!", Toast.LENGTH_LONG).show();
-                break;
 
-        }
 
         return super.onOptionsItemSelected(item);
     }

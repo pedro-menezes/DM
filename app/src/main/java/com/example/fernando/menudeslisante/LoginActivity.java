@@ -53,8 +53,6 @@ public class LoginActivity extends Activity {
     public void onCLick(View v) {
         //chama o metodo de requisição passando o json como parametro e a URL do webservice
 
-        Intent it = new Intent(getApplicationContext(),TelaSplashActivity.class);
-        startActivity(it);
         requisitaPost(
                 JSONDados.geraJsonUsuario(
                         etN1.getText().toString(),
@@ -276,16 +274,16 @@ public class LoginActivity extends Activity {
                         public void run() {
                             if(resp.equals("true")){
 
-                                        requisitaPostBD(  " ",
-                                                "https://provafacil.000webhostapp.com/REST/getTema.php", 1);
-                                        requisitaPostBD(  " ",
-                                                "https://provafacil.000webhostapp.com/REST/getTodasQuestoes.php", 2);
-                                        requisitaPostBD(  " ",
-                                        "https://provafacil.000webhostapp.com/REST/getAlternativas.php", 3);
+                                        //requisitaPostBD(  " ",
+                                        //        "https://provafacil.000webhostapp.com/REST/getTema.php", 1);
+                                        //requisitaPostBD(  " ",
+                                          //      "https://provafacil.000webhostapp.com/REST/getTodasQuestoes.php", 2);
+                                       // requisitaPostBD(  " ",
+                                       // "https://provafacil.000webhostapp.com/REST/getAlternativas.php", 3);
 
-                                Intent it = new Intent(getApplicationContext(),MenuActivity.class);
+
+                                Intent it = new Intent(getApplicationContext(),TelaSplashActivity.class);
                                 startActivity(it);
-
                             }
                             else{
                                 Toast.makeText(getApplicationContext(), "Falha no Login!!!", Toast.LENGTH_LONG).show();

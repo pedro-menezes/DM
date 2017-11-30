@@ -4,8 +4,10 @@ package com.example.fernando.menudeslisante.bd;
         import android.content.Context;
         import android.database.Cursor;
         import android.database.sqlite.SQLiteDatabase;
+        import android.util.Log;
 
         import com.example.fernando.menudeslisante.beans.Alternativa;
+        import com.example.fernando.menudeslisante.beans.Prova;
         import com.example.fernando.menudeslisante.beans.Questao;
 
         import java.util.ArrayList;
@@ -13,11 +15,13 @@ package com.example.fernando.menudeslisante.bd;
         import java.util.List;
 
 public class BDAlternativa {
-    public SQLiteDatabase db;
+    public SQLiteDatabase db, dbr;
 
     public BDAlternativa(Context context) {
         BdCore auxBd = new BdCore(context);
         db = auxBd.getWritableDatabase();
+
+        dbr = auxBd.getReadableDatabase();
     }
 
     public long insertAlternativa(Alternativa questao) {
@@ -134,5 +138,38 @@ public class BDAlternativa {
         }
         // Retorna a lista
         return listaAlternativas;
+    }
+
+    public List<Alternativa> findBySql(String sql) {
+        //SQLiteDatabase db = getReadableDatabase();
+        Log.d("[IFMG]", "SQL: " + sql);
+        try {
+            Log.d("[IFMG]", "Vai consultar");
+            Cursor c = dbr.rawQuery(sql, null);
+            Log.d("[IFMG]", "Consultou...");
+            return toList(c);
+        } finally {
+
+            //dbr.close();
+        }
+    }
+
+    // Lê o cursor e cria a lista de coatatos
+    private List<Alternativa> toList(Cursor c) {
+        List<Alternativa> alternativas = new ArrayList<Alternativa>();
+        Log.d("IFMG", "Identifica Cursor...");
+        if (c.moveToFirst()) {
+            do {
+                Alternativa alternativa = new Alternativa();
+                alternativas.add(alternativa);
+
+                // recupera os atributos de professores
+                alternativa.setAltCodigo(c.getInt(c.getColumnIndex("altCodigo")));
+                alternativa.setAltEnunciado(c.getString(c.getColumnIndex("altEnunciado")));
+                alternativa.setAlt_queCodigo(c.getInt(c.getColumnIndex("alt_queCodigo")));
+                alternativa.setAltCorreta(c.getInt(c.getColumnIndex("altCorreta")));
+            } while (c.moveToNext());
+        }
+        return alternativas;
     }
 }
